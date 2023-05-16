@@ -1,7 +1,13 @@
+import { Route, Routes } from 'react-router-dom'
+import SignIn from './components/SignIn'
 
 const App = (): JSX.Element => {
   return (
-    <h1 className="border border-red-600">Hello World!</h1>
+    <main>
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+      </Routes>
+    </main>
   )
 }
 
