@@ -1,17 +1,13 @@
-FROM node:18-alpine
+FROM node
 
 WORKDIR /app
 
-EXPOSE 5173
-
 COPY package.json .
 
-COPY package-lock.json .
-
-RUN npm install
+RUN npm i
 
 COPY . .
 
-ENTRYPOINT [ "npm" ]
+EXPOSE 5173
 
-CMD [ "run", "dev" ]
+CMD ["npm", "run", "dev"]
