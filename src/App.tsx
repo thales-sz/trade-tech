@@ -1,19 +1,7 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 
-function App() {
+const App = (): JSX.Element => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" className='mt-80 border border-red-400'>
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite</h1>
-    </>
+    <h1 className="border border-red-600">Hello World!</h1>
   )
 }
 
