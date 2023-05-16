@@ -1,18 +1,21 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { signInSchema } from '../schemas/form.schema'
+import { signInSchema } from '../common/schemas/form.schema'
 import { useMutation } from 'react-query'
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { CgDanger } from 'react-icons/cg'
+import Loading from './Loading'
 
 interface IForm {
   apiKey: string
 }
 
 function SignIn (): JSX.Element {
-  const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<boolean>(false)
+  const navigate = useNavigate()
   const { register, handleSubmit } = useForm<IForm>({
     resolver: zodResolver(signInSchema)
   })
@@ -25,11 +28,14 @@ function SignIn (): JSX.Element {
   })
 
   const SignIn = handleSubmit(async ({ apiKey }) => {
+    setError(false)
     setLoading(true)
-    const { data } = await mutateAsync(apiKey)
 
-    if (data.results === 1) navigate('/home')
-    if (data.results === 0) 
+    const { data: { results } } = await mutateAsync(apiKey)
+
+    results === 1 ? navigate('/home') : setError(true)
+
+    setLoading(false)
   })
 
   return (
@@ -58,11 +64,12 @@ function SignIn (): JSX.Element {
               </div>
               <button type="submit" className="hover:bg-slate-700 w-full rounded-lg bg-slate-700 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300">Enviar</button>
             </form>
-            { error
-          ? <div className='flex text-red-500 gap-2'>
-          <CgDanger width={10} color='red'/>
-        Email ou senha inválidos!
-        </div>}
+            {loading && <Loading />}
+            { error &&
+              <div className='flex text-red-500 gap-2'>
+                <CgDanger width={10} color='red'/>
+                Chave da API inválida
+              </div> }
             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
               Não possui uma chave?{' '}
               <a className="font-medium text-blue-400 hover:underline" href="https://dashboard.api-football.com/register" target='_blank' rel="noreferrer">

@@ -26,6 +26,7 @@
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "react/react-in-jsx-scope": "off",
-    "react/jsx-uses-react": "off"
+    "react/jsx-uses-react": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
