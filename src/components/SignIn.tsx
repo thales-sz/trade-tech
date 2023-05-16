@@ -1,23 +1,36 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { signInSchema } from '../schemas/form.schema'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation } from 'react-query'
 import axios from 'axios'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+interface IForm {
+  apiKey: string
+}
 
 function SignIn (): JSX.Element {
-  const { register, handleSubmit } = useForm({
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState<boolean>(false)
+  const { register, handleSubmit } = useForm<IForm>({
     resolver: zodResolver(signInSchema)
   })
 
   const { mutateAsync } = useMutation({
     mutationFn: async (key: string) => {
-      return await axios.post('https://v3.football.api-sports.io/status', { headers: { Authorization: key } })
+      console.log('mutate', key)
+      return await axios.get('https://v3.football.api-sports.io/status', { headers: { 'x-apisports-key': key } })
     }
   })
 
-  async function SignIn (key: unknown): Promise<void> {
-    console.log(key)
-  }
+  const SignIn = handleSubmit(async ({ apiKey }) => {
+    setLoading(true)
+    const { data } = await mutateAsync(apiKey)
+
+    if (data.results === 1) navigate('/home')
+    if (data.results === 0) 
+  })
 
   return (
     <>
@@ -26,18 +39,18 @@ function SignIn (): JSX.Element {
             <h1 className="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
               Entre com sua chave da API Football
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(SignIn)}>
+            <form className="space-y-4 md:space-y-6" onSubmit={SignIn}>
               <div>
                 <label
-                  htmlFor="api_key"
+                  htmlFor="apiKey"
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   Chave da API
                 </label>
                 <input
-                  {...register('api_key')}
-                  type="email"
-                  id="api_key"
+                  {...register('apiKey')}
+                  type="text"
+                  id="apiKey"
                   className="focus:ring-slate-600 focus:border-slate-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
                   placeholder="API Key"
                   required
@@ -45,6 +58,11 @@ function SignIn (): JSX.Element {
               </div>
               <button type="submit" className="hover:bg-slate-700 w-full rounded-lg bg-slate-700 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300">Enviar</button>
             </form>
+            { error
+          ? <div className='flex text-red-500 gap-2'>
+          <CgDanger width={10} color='red'/>
+        Email ou senha inválidos!
+        </div>}
             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
               Não possui uma chave?{' '}
               <a className="font-medium text-blue-400 hover:underline" href="https://dashboard.api-football.com/register" target='_blank' rel="noreferrer">
