@@ -1,7 +1,12 @@
 
 function SignIn (): JSX.Element {
   return (
-    <div>SignIn</div>
+    <section>
+      <form>
+        <input type="text" placeholder="API Key" required />
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
   )
 }
 
