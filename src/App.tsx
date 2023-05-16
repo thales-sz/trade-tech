@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
-import SignIn from './components/SignIn'
+import Home from './pages/Home'
 
 const App = (): JSX.Element => {
   return (
       <Routes>
-        <Route path="/" element={<SignIn />} />
+        <Route path="/" element={<Home />} />
       </Routes>
   )
 }
