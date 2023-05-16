@@ -17,7 +17,7 @@ function Provider ({ children }: IProps): JSX.Element {
   }, [dispatch])
 
   return (
-    <Context.Provider value={{ ...state, toggleSignedIn, signedIn: false }}>
+    <Context.Provider value={{ ...state, toggleSignedIn }}>
       {children}
     </Context.Provider>
   )

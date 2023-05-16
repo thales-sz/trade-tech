@@ -3,16 +3,18 @@ import { useForm } from 'react-hook-form'
 import { signInSchema } from '../common/schemas/form.schema'
 import { useMutation } from 'react-query'
 import axios from 'axios'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CgDanger } from 'react-icons/cg'
 import Loading from './Loading'
+import Context from '../common/context/Context'
 
 interface IForm {
   apiKey: string
 }
 
 function SignIn (): JSX.Element {
+  const { toggleSignedIn } = useContext(Context)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<boolean>(false)
   const navigate = useNavigate()
@@ -22,7 +24,6 @@ function SignIn (): JSX.Element {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (key: string) => {
-      console.log('mutate', key)
       return await axios.get('https://v3.football.api-sports.io/status', { headers: { 'x-apisports-key': key } })
     }
   })
@@ -33,8 +34,12 @@ function SignIn (): JSX.Element {
 
     const { data: { results } } = await mutateAsync(apiKey)
 
-    results === 1 ? navigate('/home') : setError(true)
+    if (results === 1) {
+      toggleSignedIn(true)
+      navigate('/home')
+    }
 
+    setError(true)
     setLoading(false)
   })
 

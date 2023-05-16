@@ -12,6 +12,7 @@ export enum ActionTypes {
 export const contextReducer = (state: IContext, { payload, type }: IDispatch): any => {
   switch (type) {
     case ActionTypes.toggleSignedIn:
+      console.log('toggleSignedIn', payload)
       return {
         ...state,
         signedIn: payload
