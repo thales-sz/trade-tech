@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import Header from '../components/Header'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'
+import Dashboard from '../components/Dashboard'
 
 function Home (): JSX.Element {
   const navigate = useNavigate()
@@ -14,6 +15,7 @@ function Home (): JSX.Element {
   return (
     <div className='h-screen bg-slate-300'>
       <Header />
+      <Dashboard />
       <Footer />
     </div>
   )

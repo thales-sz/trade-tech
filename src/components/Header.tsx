@@ -26,6 +26,7 @@ function Header (): JSX.Element {
 
   function handleButtonClick (): void {
     localStorage.removeItem('user')
+    localStorage.removeItem('apiKey')
     navigate('/')
   }
 

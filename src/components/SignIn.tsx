@@ -2,11 +2,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { signInSchema } from '../common/schemas/form.schema'
 import { useMutation } from 'react-query'
-import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CgDanger } from 'react-icons/cg'
 import Loading from './Loading'
+import { api } from '../api/queryClient'
 
 interface IForm {
   apiKey: string
@@ -22,7 +22,7 @@ function SignIn (): JSX.Element {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (key: string) => {
-      return await axios.get('https://v3.football.api-sports.io/status', { headers: { 'x-apisports-key': key } })
+      return await api.get('/status', { headers: { 'x-apisports-key': key } })
     }
   })
 
@@ -34,6 +34,7 @@ function SignIn (): JSX.Element {
 
     if (data.results === 1) {
       localStorage.setItem('user', JSON.stringify(data.response))
+      localStorage.setItem('apiKey', apiKey)
       navigate('/home')
       return
     }
