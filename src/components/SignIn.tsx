@@ -3,18 +3,16 @@ import { useForm } from 'react-hook-form'
 import { signInSchema } from '../common/schemas/form.schema'
 import { useMutation } from 'react-query'
 import axios from 'axios'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CgDanger } from 'react-icons/cg'
 import Loading from './Loading'
-import Context from '../common/context/Context'
 
 interface IForm {
   apiKey: string
 }
 
 function SignIn (): JSX.Element {
-  const { toggleSignedIn } = useContext(Context)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<boolean>(false)
   const navigate = useNavigate()
@@ -32,11 +30,12 @@ function SignIn (): JSX.Element {
     setError(false)
     setLoading(true)
 
-    const { data: { results } } = await mutateAsync(apiKey)
+    const { data } = await mutateAsync(apiKey)
 
-    if (results === 1) {
-      toggleSignedIn(true)
+    if (data.results === 1) {
+      localStorage.setItem('user', JSON.stringify(data.response))
       navigate('/home')
+      return
     }
 
     setError(true)
