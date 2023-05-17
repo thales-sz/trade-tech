@@ -2,20 +2,40 @@ import { type IContext } from './Context'
 
 interface IDispatch {
   type: ActionTypes
-  payload: boolean
+  payload: string | number
 }
 
 export enum ActionTypes {
-  toggleSignedIn = 'toggleSignedIn'
+  toggleSeason = 'toggleSeason',
+  toggleCountry = 'toggleCountry',
+  toggleLeague = 'toggleLeague'
 }
 
 export const contextReducer = (state: IContext, { payload, type }: IDispatch): any => {
   switch (type) {
-    case ActionTypes.toggleSignedIn:
-      console.log('toggleSignedIn', payload)
+    case ActionTypes.toggleSeason:
       return {
         ...state,
-        signedIn: payload
+        selection: {
+          ...state.selection,
+          season: payload
+        }
+      }
+    case ActionTypes.toggleCountry:
+      return {
+        ...state,
+        selection: {
+          ...state.selection,
+          country: payload
+        }
+      }
+    case ActionTypes.toggleLeague:
+      return {
+        ...state,
+        selection: {
+          ...state.selection,
+          league: payload
+        }
       }
     default:
       throw new Error('Unknown action')

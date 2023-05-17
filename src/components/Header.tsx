@@ -1,10 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+interface IUser {
+  account: {
+    firstname: string
+    lastname: string
+    email: string
+  }
+}
+
 function Header (): JSX.Element {
   const navigate = useNavigate()
   const [headerBlack, setHeaderBlack] = useState<boolean>(false)
-  const [user, setUser] = useState(false)
+  const [user, setUser] = useState<IUser>({
+    account: { firstname: '', lastname: '', email: '' }
+  })
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 200) {
@@ -18,10 +28,10 @@ function Header (): JSX.Element {
     const logedUser = localStorage.getItem('user')
     if (logedUser !== null && logedUser !== '') {
       const data = JSON.parse(logedUser)
-      setUser(data.account.firstname)
+      setUser(data)
       return
     }
-    setUser(false)
+    localStorage.clear()
   }, [])
 
   function handleButtonClick (): void {
@@ -34,16 +44,16 @@ function Header (): JSX.Element {
     <header
       className={`${
         !headerBlack ? 'bg-transparent' : 'bg-slate-900'
-      } fixed z-10 flex h-20 p-3 w-full flex-col bg-gradient-to-b max-sm:max-h-30 from-black to-transparent font-bold text-slate-100 hover:bg-slate-900 text-center drop-shadow-md`}
+      } fixed z-10 flex h-32 p-3 w-full flex-col bg-gradient-to-b max-sm:max-h-30 from-black to-transparent font-bold text-slate-100 hover:bg-slate-900 text-center drop-shadow-md`}
     >
-     <h1 className='text-xl drop-shadow-md'>Trade Technology FrontEnd Challenge</h1>
-     <div className="self-end flex items-center gap-4 -mt-4">
-          { user &&
+     <div className="flex items-center flex-wrap text-center justify-between">
+      <h1 className='text-xl drop-shadow-md w-full p-2'>Trade Technology FrontEnd Challenge</h1>
+          { user.account.firstname !== '' &&
           <>
-            <h1>Bem vindo, {`${user}`}</h1>
+            <h1 className='w-44 text-lg'>Bem vindo, {`${user.account.firstname}`}</h1>
             <button
               type="submit"
-              className="hover:bg-slate-700 rounded-lg bg-slate-700 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-1 focus:ring-blue-300"
+              className="hover:bg-slate-700 rounded-lg bg-slate-700 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-1 focus:ring-blue-300 w-44"
               onClick={handleButtonClick}>
               Sair
             </button>

@@ -7,17 +7,37 @@ interface IProps {
 }
 
 function Provider ({ children }: IProps): JSX.Element {
-  const [state, dispatch] = useReducer(contextReducer, { signedIn: false })
+  const [state, dispatch] = useReducer(contextReducer, {
+    selection: {
+      country: '',
+      season: 0,
+      league: 0
+    }
+  })
 
-  const toggleSignedIn = useCallback((bol: boolean) => {
+  const toggleSeason = useCallback((season: number) => {
     dispatch({
-      type: ActionTypes.toggleSignedIn,
-      payload: bol
+      type: ActionTypes.toggleSeason,
+      payload: season
+    })
+  }, [dispatch])
+
+  const toggleCountry = useCallback((country: string) => {
+    dispatch({
+      type: ActionTypes.toggleCountry,
+      payload: country
+    })
+  }, [dispatch])
+
+  const toggleLeague = useCallback((league: number) => {
+    dispatch({
+      type: ActionTypes.toggleLeague,
+      payload: league
     })
   }, [dispatch])
 
   return (
-    <Context.Provider value={{ ...state, toggleSignedIn }}>
+    <Context.Provider value={{ ...state, toggleSeason, toggleCountry, toggleLeague }}>
       {children}
     </Context.Provider>
   )
