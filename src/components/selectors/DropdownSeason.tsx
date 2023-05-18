@@ -5,6 +5,7 @@ import Loading from '../Loading'
 import { CgDanger } from 'react-icons/cg'
 import SelectorSeason from './SelectorSeason'
 import Context from '../../common/context/Context'
+import { RxCross2 } from 'react-icons/rx'
 
 function DropdownSeason (): JSX.Element {
   const { toggleSeason } = useContext(Context)
@@ -45,9 +46,12 @@ function DropdownSeason (): JSX.Element {
         onClick={handleButtonClick}
         data-dropdown-placement="bottom" className="flex text-white bg-slate-700 hover:bg-slate-800 focus:ring-2 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm p-4 text-center items-center w-60 gap-2 justify-around" type="button">
           Selecionar Temporada
-          <svg className="w-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-          </svg>
+          {dropdownEnabled
+            ? <RxCross2 />
+            : <svg className="w-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            }
       </button>
       <div id="dropdownSearch" className={`${dropdownEnabled ? '' : 'hidden'} z-10 bg-white rounded-lg shadow w-60 dark:bg-gray-700 mt-14 absolute`}>
           <ul className="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700">
