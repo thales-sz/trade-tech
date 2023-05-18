@@ -6,6 +6,7 @@ import { CgDanger } from 'react-icons/cg'
 import Context from '../../common/context/Context'
 import SelectorTeam from './SelectorTeam'
 import { RxCross2 } from 'react-icons/rx'
+import { useNavigate } from 'react-router-dom'
 
 export interface ITeam {
   team: {
@@ -19,8 +20,10 @@ export interface ITeam {
   }
 }
 function DropdownTeam (): JSX.Element {
-  const { selection: { country, season, league } } = useContext(Context)
+  const navigate = useNavigate()
+  const { selection: { country, season, league }, toggleTeam } = useContext(Context)
   const [dropdownEnabled, setDropdownEnabled] = useState(false)
+  const [error, setError] = useState(false)
   const [itemsState, setItems] = useState<ITeam[]>([])
   const [form, setForm] = useState({
     selectedTeam: ''
@@ -46,6 +49,15 @@ function DropdownTeam (): JSX.Element {
       const data = await mutateAsync()
       setItems(data)
     }
+  }
+
+  const handleButtonNextClick = (): void => {
+    setError(false)
+    if (form.selectedTeam === '') {
+      setError(true)
+    }
+    toggleTeam(form.selectedTeam)
+    navigate('/dashboard')
   }
 
   return (
@@ -80,8 +92,12 @@ function DropdownTeam (): JSX.Element {
             }
           </ul>
       </div>
-      <button>Selecionar Time</button>
-  </div>
+            <button type="button" className="hover:bg-slate-700 w-2/3 rounded-lg bg-slate-700 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300 mt-4 mx-auto" onClick={handleButtonNextClick}>Selecionar time</button>
+            {error && <div className='flex text-red-500 gap-2 mt-40'>
+                  <CgDanger width={10} color='red'/>
+                  Você deve selecionar um time!
+                </div>}
+        </div>
 
   )
 }
