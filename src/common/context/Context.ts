@@ -6,12 +6,12 @@ export interface IContext {
     country: string
     season: number
     league: number
-    team: string
+    team: number
   }
   toggleCountry: (country: string) => void
   toggleSeason: (season: number) => void
   toggleLeague: (league: number) => void
-  toggleTeam: (team: string) => void
+  toggleTeam: (team: number) => void
 }
 
 const Context = React.createContext<IContext>({
@@ -19,7 +19,7 @@ const Context = React.createContext<IContext>({
     country: '',
     season: 0,
     league: 0,
-    team: ''
+    team: 0
   },
   toggleCountry: () => {},
   toggleSeason: () => {},

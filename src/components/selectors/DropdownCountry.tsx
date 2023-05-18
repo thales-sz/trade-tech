@@ -38,7 +38,7 @@ function DropdownCountry (): JSX.Element {
       ...form,
       [target.name]: target.value
     })
-    toggleCountry(target.value)
+    target.name === 'country' && toggleCountry(target.value)
   }
 
   const handleButtonClick = async (): Promise<void> => {

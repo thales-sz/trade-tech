@@ -28,6 +28,7 @@ function SelectTeam (): JSX.Element {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
+    console.log('Submit')
     setError(false)
     if (country !== '' || season !== 0) {
       const data = await mutateAsync()

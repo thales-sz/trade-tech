@@ -26,7 +26,7 @@ function DropdownTeam (): JSX.Element {
   const [error, setError] = useState(false)
   const [itemsState, setItems] = useState<ITeam[]>([])
   const [form, setForm] = useState({
-    selectedTeam: ''
+    selectedTeam: 0
   })
 
   const { isLoading, mutateAsync } = useMutation({
@@ -53,10 +53,10 @@ function DropdownTeam (): JSX.Element {
 
   const handleButtonNextClick = (): void => {
     setError(false)
-    if (form.selectedTeam === '') {
+    if (form.selectedTeam === 0) {
       setError(true)
     }
-    toggleTeam(form.selectedTeam)
+    toggleTeam(Number(form.selectedTeam))
     navigate('/dashboard')
   }
 

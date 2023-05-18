@@ -11,7 +11,8 @@ function Provider ({ children }: IProps): JSX.Element {
     selection: {
       country: '',
       season: 0,
-      league: 0
+      league: 0,
+      team: 0
     }
   })
 
