@@ -1,35 +1,33 @@
 import { useContext, useState } from 'react'
-import { useMutation } from 'react-query'
-import { api } from '../../api/queryClient'
-import Loading from '../Loading'
 import { CgDanger } from 'react-icons/cg'
-import SelectorCountry from './SelectorCountry'
+import SelectorLeague from './SelectorLeague'
 import Context from '../../common/context/Context'
 
-export interface Country {
-  name: string
-  code: string
-  flag: string
+export interface League {
+  league: {
+    id: number
+    name: string
+    type: string
+    logo: string
+  }
 }
 
-function DropdownCountry (): JSX.Element {
-  const { toggleCountry } = useContext(Context)
+interface DropdownProps {
+  handleButtonTeamClickProp: () => void
+  leagueListProp: League[]
+}
+
+function DropdownLeague ({ leagueListProp, handleButtonTeamClickProp }: DropdownProps): JSX.Element {
+  const { toggleLeague, selection } = useContext(Context)
+  const [error, setError] = useState(false)
   const [dropdownEnabled, setDropdownEnabled] = useState(false)
-  const [itemsState, setItems] = useState<Country[]>([])
   const [form, setForm] = useState({
     searchTerm: '',
-    country: ''
+    league: 0
   })
 
-  const countriesList = itemsState.filter((country) => {
-    return country.name.toLowerCase().match(form.searchTerm.toLocaleLowerCase())
-  })
-
-  const { isLoading, mutateAsync } = useMutation({
-    mutationFn: async (): Promise<Country[]> => {
-      const { data } = await api.get('/countries')
-      return data.response
-    }
+  const leagueList = leagueListProp.filter((league) => {
+    return league.league.name.toLowerCase().match(form.searchTerm.toLocaleLowerCase())
   })
 
   const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
@@ -37,15 +35,18 @@ function DropdownCountry (): JSX.Element {
       ...form,
       [target.name]: target.value
     })
-    toggleCountry(target.value)
+    toggleLeague(Number(target.value))
   }
 
-  const handleButtonClick = async (): Promise<void> => {
+  const handleDropdownClick = async (): Promise<void> => {
     setDropdownEnabled(!dropdownEnabled)
-    if (itemsState[0] === undefined) {
-      const data = await mutateAsync()
-      setItems(data)
+  }
+
+  const handleButtonNextClick = async (): Promise<void> => {
+    if (selection.country !== '' && selection.league !== 0 && selection.league !== 0) {
+      handleButtonTeamClickProp()
     }
+    setError(true)
   }
 
   return (
@@ -53,9 +54,9 @@ function DropdownCountry (): JSX.Element {
     <button
       id="dropdownSearchButton"
       data-dropdown-toggle="dropdownSearch"
-      onClick={handleButtonClick}
+      onClick={handleDropdownClick}
       data-dropdown-placement="bottom" className="flex text-white bg-slate-700 hover:bg-slate-800 focus:ring-2 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm p-4 text-center items-center w-60 gap-2 justify-around" type="button">
-        Selecionar País
+        Selecionar Liga
         <svg className="w-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
         </svg>
@@ -72,24 +73,28 @@ function DropdownCountry (): JSX.Element {
             </div>
           </div>
           <ul className="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700">
-            { isLoading
-              ? <Loading />
-              : (countriesList != null && itemsState.length > 0)
-                  ? countriesList.map((country, index) => {
-                    return (
-                      <SelectorCountry {...country} key={index} handleInputChange={handleInputChange} form={form}/>
-                    )
-                  })
-                  : <div className='flex text-red-500 gap-2 mt-40'>
-                      <CgDanger width={10} color='red'/>
-                      Erro!
-                    </div>
+            {
+            (leagueList != null && leagueListProp.length > 0)
+              ? leagueList.map((league, index) => {
+                return (
+                  <SelectorLeague {...league} key={index} handleInputChange={handleInputChange} form={form}/>
+                )
+              })
+              : <div className='flex text-red-500 gap-2 mt-40'>
+                  <CgDanger width={10} color='red'/>
+                  Erro!
+                </div>
             }
           </ul>
       </div>
+      <button type="button" className="hover:bg-slate-700 w-2/3 rounded-lg bg-slate-700 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300 mt-4 mx-auto" onClick={handleButtonNextClick}>Próximo</button>
+      {error && <div className='flex text-red-500 gap-2 mt-40'>
+                  <CgDanger width={10} color='red'/>
+                  Você deve selecionar uma liga!
+                </div>}
   </div>
 
   )
 }
 
-export default DropdownCountry
+export default DropdownLeague
