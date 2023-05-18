@@ -1,4 +1,4 @@
-import Dashboard from '../components/Dashboard'
+import Dashboard from '../components/Dashboard/Dashboard'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 

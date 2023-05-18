@@ -9,7 +9,6 @@ interface SelectorProps extends League {
 }
 
 function SelectorCountry ({ league: { id, name, logo }, handleInputChange, form }: SelectorProps): JSX.Element {
-  console.log('form:', form.league, 'id:', id)
   return (
     <li>
       <div className="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
