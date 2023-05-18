@@ -4,10 +4,10 @@ import Header from '../components/Header'
 
 function TeamDashboard (): JSX.Element {
   return (
-    <div className='h-screen bg-slate-300'>
+    <div className='h-full bg-slate-300'>
       <Header />
       <Dashboard />
-      <Footer />
+      <Footer absolute={false}/>
     </div>
   )
 }

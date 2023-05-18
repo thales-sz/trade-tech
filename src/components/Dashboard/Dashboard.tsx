@@ -7,6 +7,7 @@ import { api } from '../../api/queryClient'
 import Loading from '../Loading'
 import { mockDataPlayers, mockDataStatistics } from '../mockData'
 import PlayersTable from './PlayersTable'
+import TeamStatistics from './TeamStatitics'
 
 function Dashboard (): JSX.Element {
   const { selection: { season, team, league } } = useContext(Context)
@@ -36,7 +37,7 @@ function Dashboard (): JSX.Element {
 
   console.log('Estatisticas', statistics.data, 'players', players.data)
 
-  const dataStatics = mockDataStatistics
+  const dataStatistics = mockDataStatistics
   const dataPlayers = mockDataPlayers
 
   return (
@@ -51,8 +52,9 @@ function Dashboard (): JSX.Element {
           </div>
         : statistics.isLoading || players.isLoading
           ? <Loading />
-          : <div className='w-full'>
-              <h1>{`${team}`} na temporada {`${season}`}</h1>
+          : <div className='w-full flex flex-wrap'>
+              <h1 className='w-full mt-40'>{`${team}`} na temporada {`${season}`}</h1>
+              <TeamStatistics data={dataStatistics} />
               <PlayersTable data={dataPlayers}/>
             </div>
         }

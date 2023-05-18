@@ -16,7 +16,7 @@ function Home (): JSX.Element {
     <div className='h-screen bg-slate-300'>
       <Header />
       <SelectTeam />
-      <Footer />
+      <Footer absolute={true}/>
     </div>
   )
 }

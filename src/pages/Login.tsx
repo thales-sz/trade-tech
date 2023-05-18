@@ -16,7 +16,7 @@ function Login (): JSX.Element {
     <div className='h-screen bg-slate-300'>
       <Header />
       <SignIn />
-      <Footer />
+      <Footer absolute={true} />
     </div>
   )
 }

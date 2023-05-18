@@ -13,7 +13,7 @@ interface PlayersTableProps {
 
 function PlayersTable ({ data }: PlayersTableProps): JSX.Element {
   return (
-    <div className="bg-slate-100 rounded-xl w-fit drop-shadow-md self-right">
+    <div className="bg-slate-100 rounded-xl w-fit drop-shadow-md self-right h-fit">
       <h1 className="text-xl font-semibold p-2 border-b border-slate-500">Jogadores</h1>
       <div className="gap-6 h-96 px-3 pb-3 overflow-y-auto text-sm text-gray-700">
         <table className="text-lg">
