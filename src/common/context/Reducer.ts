@@ -8,7 +8,8 @@ interface IDispatch {
 export enum ActionTypes {
   toggleSeason = 'toggleSeason',
   toggleCountry = 'toggleCountry',
-  toggleLeague = 'toggleLeague'
+  toggleLeague = 'toggleLeague',
+  toggleTeam = 'toggleTeam'
 }
 
 export const contextReducer = (state: IContext, { payload, type }: IDispatch): any => {
@@ -35,6 +36,14 @@ export const contextReducer = (state: IContext, { payload, type }: IDispatch): a
         selection: {
           ...state.selection,
           league: payload
+        }
+      }
+    case ActionTypes.toggleTeam:
+      return {
+        ...state,
+        selection: {
+          ...state.selection,
+          team: payload
         }
       }
     default:

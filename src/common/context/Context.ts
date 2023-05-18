@@ -6,21 +6,25 @@ export interface IContext {
     country: string
     season: number
     league: number
+    team: string
   }
   toggleCountry: (country: string) => void
   toggleSeason: (season: number) => void
   toggleLeague: (league: number) => void
+  toggleTeam: (team: string) => void
 }
 
 const Context = React.createContext<IContext>({
   selection: {
     country: '',
     season: 0,
-    league: 0
+    league: 0,
+    team: ''
   },
   toggleCountry: () => {},
   toggleSeason: () => {},
-  toggleLeague: () => {}
+  toggleLeague: () => {},
+  toggleTeam: () => {}
 })
 
 export default Context

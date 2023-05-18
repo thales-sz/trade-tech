@@ -36,8 +36,15 @@ function Provider ({ children }: IProps): JSX.Element {
     })
   }, [dispatch])
 
+  const toggleTeam = useCallback((team: string) => {
+    dispatch({
+      type: ActionTypes.toggleTeam,
+      payload: team
+    })
+  }, [dispatch])
+
   return (
-    <Context.Provider value={{ ...state, toggleSeason, toggleCountry, toggleLeague }}>
+    <Context.Provider value={{ ...state, toggleSeason, toggleCountry, toggleLeague, toggleTeam }}>
       {children}
     </Context.Provider>
   )
