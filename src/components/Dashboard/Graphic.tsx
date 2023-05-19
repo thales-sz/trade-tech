@@ -8,7 +8,7 @@ const options: ApexOptions = {
     position: 'top',
     horizontalAlign: 'left'
   },
-  colors: ['#7592CA'],
+  colors: ['#3AFF00', '#FF1300'],
   chart: {
     fontFamily: 'Satoshi, sans-serif',
     height: 400,
@@ -81,7 +81,12 @@ const options: ApexOptions = {
     categories: [
       '0 - 15 min',
       '16 - 30 min',
-      '31 - 45 min'
+      '31 - 45 min',
+      '46 - 60 min',
+      '61 - 75 min',
+      '76, 90 min',
+      '91 - 105 min',
+      '106 - 120 min'
     ],
     axisBorder: {
       show: true
@@ -104,7 +109,7 @@ const options: ApexOptions = {
       }
     },
     min: 0,
-    max: 25
+    max: 20
   }
 }
 
@@ -116,13 +121,25 @@ interface State {
   }>
 }
 
-function Graphic (): JSX.Element {
+function Graphic ({ data: { goals } }: any): JSX.Element {
   const [state] = useState<State>({
     options,
     series: [
       {
-        name: 'Gols',
-        data: [4, 17, 11]
+        name: 'Gols Pró',
+        data: [
+          ...Object.keys(goals.for.minute).map((key): number => {
+            return goals.for.minute[key].total
+          })
+        ]
+      },
+      {
+        name: 'Gols Sofridos',
+        data: [
+          ...Object.keys(goals.against.minute).map((key): number => {
+            return goals.against.minute[key].total
+          })
+        ]
       }
     ]
   })

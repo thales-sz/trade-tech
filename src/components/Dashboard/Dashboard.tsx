@@ -8,6 +8,7 @@ import Loading from '../Loading'
 import PlayersTable from './PlayersTable'
 import TeamStatistics from './TeamStatitics'
 import Graphic from './Graphic'
+import { mockDataPlayers, mockDataStatistics } from '../mockData'
 
 function Dashboard (): JSX.Element {
   const { selection: { season, team, league } } = useContext(Context)
@@ -48,7 +49,7 @@ function Dashboard (): JSX.Element {
     { queryKey: ['players', 2], queryFn: fetchPlayers, retry: 1, refetchOnWindowFocus: false }
   ])
 
-  console.log(statistics.data, players.data)
+  console.log(mockDataStatistics, players.data)
   return (
     <div className="flex items-center w-3/4 mx-auto h-full text-center">
       {error
@@ -64,8 +65,8 @@ function Dashboard (): JSX.Element {
           : <div className='w-full flex flex-wrap justify-center gap-8'>
               <h1 className='w-full mt-40 text-3xl font-semibold'>{} na temporada {season}</h1>
               <TeamStatistics data={statistics.data} />
-              <PlayersTable data={players.data}/>
-              <Graphic />
+              <PlayersTable data={players.data} />
+              <Graphic data={statistics.data} />
             </div>
         }
     </div>
