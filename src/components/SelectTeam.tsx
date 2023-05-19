@@ -12,6 +12,7 @@ function SelectTeam (): JSX.Element {
   const { selection: { country, season } } = useContext(Context)
   const [error, setError] = useState(false)
   const [teams, setTeamsState] = useState(false)
+  const [tryAgain, setTryAgain] = useState(false)
   const [leaguesState, setLeaguesState] = useState([])
 
   const { mutateAsync } = useMutation({
@@ -28,11 +29,15 @@ function SelectTeam (): JSX.Element {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
-    console.log('Submit')
     setError(false)
+    setTryAgain(false)
     if (country !== '' || season !== 0) {
       const data = await mutateAsync()
-      setLeaguesState(data.response)
+      if (data.response[0] !== undefined) {
+        setLeaguesState(data.response)
+        return
+      }
+      setTryAgain(true)
       return
     }
     setError(true)
@@ -58,6 +63,11 @@ function SelectTeam (): JSX.Element {
               </>
               }
         </form>
+        {tryAgain &&
+          <div className='flex text-orange-500 gap-2'>
+             <CgDanger width={15} color='orange'/>
+              Ocorreu algum erro, tente novamente com outros valores!
+          </div>}
         {error &&
           <div className='flex text-red-500 gap-2'>
              <CgDanger width={15} color='red'/>

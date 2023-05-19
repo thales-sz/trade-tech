@@ -50,7 +50,7 @@ function Header (): JSX.Element {
       <h1 className='text-xl drop-shadow-md w-full p-2'>Trade Technology FrontEnd Challenge</h1>
           { user.account.firstname !== '' &&
           <>
-            <h1 className='w-44 text-lg'>Bem vindo, {`${user.account.firstname}`}</h1>
+            <h1 className='w-fit text-lg'>Bem vindo(a), {`${user.account.firstname}`}</h1>
             <button
               type="submit"
               className="hover:bg-slate-700 rounded-lg bg-slate-700 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-1 focus:ring-blue-300 w-44"

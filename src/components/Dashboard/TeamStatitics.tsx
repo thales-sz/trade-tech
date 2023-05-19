@@ -1,4 +1,4 @@
-import Graphic from './Graphic'
+import InfoCard from './InfoCard'
 
 interface TeamTableProps {
   data: any
@@ -7,7 +7,10 @@ interface TeamTableProps {
 function TeamStatistics ({ data }: TeamTableProps): JSX.Element {
   return (
     <div>
-      <Graphic />
+      <InfoCard {...data}/>
+      <InfoCard {...data}/>
+      <InfoCard {...data}/>
+      <InfoCard {...data}/>
     </div>
   )
 }

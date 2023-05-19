@@ -128,7 +128,7 @@ function Graphic (): JSX.Element {
   })
 
   return (
-    <div className="col-span-12 border border-slate-300 bg-slate-100 px-5 pt-7.5 pb-5 shadow-default sm:px-7.5 max-sm:w-full lg:w-1/2 xl:col-span-8 rounded-lg shadow-lg mt-5 w-1/2">
+    <div className="border border-slate-300 bg-slate-100 px-5 pt-7.5 pb-5 shadow-lg rounded-lg mt-5 w-[580px]">
       <h1 className='text-2xl font-semibold my-2'>Gráfico (Gols x Tempo)</h1>
       <div>
         <div id="chartOne">
@@ -136,7 +136,7 @@ function Graphic (): JSX.Element {
             options={state.options}
             series={state.series}
             type="bar"
-            height={350}
+            height={400}
           />
         </div>
       </div>

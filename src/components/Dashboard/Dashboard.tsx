@@ -5,19 +5,19 @@ import { CgDanger } from 'react-icons/cg'
 import { useQueries } from 'react-query'
 import { api } from '../../api/queryClient'
 import Loading from '../Loading'
-import { mockDataPlayers, mockDataStatistics } from '../mockData'
 import PlayersTable from './PlayersTable'
 import TeamStatistics from './TeamStatitics'
+import Graphic from './Graphic'
 
 function Dashboard (): JSX.Element {
   const { selection: { season, team, league } } = useContext(Context)
-  const [error] = useState(false)
+  const [error, setError] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     const logedUser = localStorage.getItem('user')
     if (logedUser == null || logedUser === '') navigate('/')
-    // if (season === 0 || team === 0 || league === 0) setError(true)
+    if (season === 0 || team === 0 || league === 0) setError(true)
   }, [navigate, season, team, league])
 
   const fetchStatistics = async (): Promise<any> => {
@@ -35,10 +35,7 @@ function Dashboard (): JSX.Element {
     { queryKey: ['players', 2], queryFn: fetchPlayers, retry: 0, refetchOnWindowFocus: false }
   ])
 
-  console.log('Estatisticas', statistics.data, 'players', players.data)
-
-  const dataStatistics = mockDataStatistics
-  const dataPlayers = mockDataPlayers
+  console.log(statistics.data, players.data)
 
   return (
     <div className="flex items-center w-3/4 border border-red-500 mx-auto h-full text-center">
@@ -52,10 +49,11 @@ function Dashboard (): JSX.Element {
           </div>
         : statistics.isLoading || players.isLoading
           ? <Loading />
-          : <div className='w-full flex flex-wrap'>
-              <h1 className='w-full mt-40'>{`${team}`} na temporada {`${season}`}</h1>
-              <TeamStatistics data={dataStatistics} />
-              <PlayersTable data={dataPlayers}/>
+          : <div className='w-full flex flex-wrap justify-center gap-8'>
+              <h1 className='w-full mt-40 text-3xl font-semibold'>Temporada {`${season}`}</h1>
+              <TeamStatistics data={statistics.data} />
+              <PlayersTable data={players.data}/>
+              <Graphic />
             </div>
         }
     </div>
