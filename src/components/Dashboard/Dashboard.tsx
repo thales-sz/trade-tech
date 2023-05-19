@@ -8,7 +8,6 @@ import Loading from '../Loading'
 import PlayersTable from './PlayersTable'
 import TeamStatistics from './TeamStatitics'
 import Graphic from './Graphic'
-import { mockDataPlayers, mockDataStatistics } from '../mockData'
 
 function Dashboard (): JSX.Element {
   const { selection: { season, team, league } } = useContext(Context)
@@ -19,7 +18,7 @@ function Dashboard (): JSX.Element {
   useEffect(() => {
     const logedUser = localStorage.getItem('user')
     if (logedUser == null || logedUser === '') navigate('/')
-    // if (season === 0 || team === 0 || league === 0) setError(true)
+    if (season === 0 || team === 0 || league === 0) setError(true)
   }, [navigate, season, team, league])
 
   const fetchStatistics = async (): Promise<any> => {
@@ -49,7 +48,7 @@ function Dashboard (): JSX.Element {
     { queryKey: ['players', 2], queryFn: fetchPlayers, retry: 1, refetchOnWindowFocus: false }
   ])
 
-  console.log(mockDataStatistics, players.data)
+  console.log(statistics.data, players.data)
   return (
     <div className="flex items-center w-3/4 mx-auto h-full text-center">
       {error
