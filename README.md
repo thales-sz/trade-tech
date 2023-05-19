@@ -32,6 +32,30 @@ npm run dev
 ```
 Acesse a aplicação em seu navegador em http://localhost:5173.
 
+## Rodando com Docker
+
+Você precisa ter instaldo o Docker em sua máquina anteriormente!
+
+Existe a opção de rodar aplicação com o Docker, siga as instruções:
+
+Faça o clone do repositório:
+```shell
+git clone https://github.com/thales-sz/trade-tech.git
+```
+Navegue até o diretório do projeto:
+```shell
+cd trade-tech
+```
+Gere a imagem Docker através do Dockerfile presente no projeto:
+```shell
+docker build . -t trade-tech-image 
+```
+Rode o container Docker através do imagem gerada anteriormente:
+ - Certifique-se da porta 5173:5173 esteja disponivel.
+```shell
+docker run -d -p 5173:5173 --name trade-tech trade-tech-image
+```
+
 ## Funcionamento
 
 Após instalar e executar o projeto localmente, você poderá visualizar a interface da aplicação no seu navegador. A página inicial solicitará o login do usúario à aplicação que é feito informando a chave da API. Ápos isso o usúario será redirecionado ao formúlario onde é possivel selecionar o país, temporada, liga e o time desejado. Na última página é demonstrado os dados estatísticos do time selecionado, sua escalação de jogadores e também um gráfico de gols pró e contra.
