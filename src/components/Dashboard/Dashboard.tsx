@@ -22,7 +22,7 @@ function Dashboard (): JSX.Element {
   }, [navigate, season, team, league])
 
   const fetchStatistics = async (): Promise<any> => {
-    const { data } = await api.get('teams/statistics?league=71&season=2022&team=124')
+    const { data } = await api.get(`teams/statistics?league=${league}&season=${season}&team=${team}`)
     setLoading(true)
     if (data.results !== 0) {
       setLoading(false)
@@ -33,7 +33,7 @@ function Dashboard (): JSX.Element {
   }
 
   const fetchPlayers = async (): Promise<any> => {
-    const { data } = await api.get('/players?league=71&season=2022&team=124')
+    const { data } = await api.get(`/players?league=${league}&season=${season}&team=${team}`)
     setLoading(true)
     if (data.results !== 0) {
       setLoading(false)
