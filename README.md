@@ -64,3 +64,7 @@ Acesse a aplicação em seu navegador em http://localhost:5173.
 
 Após instalar e executar o projeto localmente, você poderá visualizar a interface da aplicação no seu navegador. A página inicial solicitará o login do usúario à aplicação que é feito informando a chave da API. Ápos isso o usúario será redirecionado ao formúlario onde é possivel selecionar o país, temporada, liga e o time desejado. Na última página é demonstrado os dados estatísticos do time selecionado, sua escalação de jogadores e também um gráfico de gols pró e contra.
 
+## Visualização
+
+Caso não queira fazer a instalação, você pode acessar o seguinte site para visualizar o funcionamento: https://trade-tech.vercel.app/
+
