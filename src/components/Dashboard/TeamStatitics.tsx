@@ -5,7 +5,6 @@ interface TeamTableProps {
 }
 
 function TeamStatistics ({ data: { fixtures, lineups } }: TeamTableProps): JSX.Element {
-  console.log(fixtures)
   return (
     <div className='flex gap-8'>
       <InfoCard data={fixtures.played.total} title={'Total de partidas'}/>
