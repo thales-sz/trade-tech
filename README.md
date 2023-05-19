@@ -34,7 +34,7 @@ Acesse a aplicação em seu navegador em http://localhost:5173.
 
 ## Rodando com Docker
 
-Você precisa ter instaldo o Docker em sua máquina anteriormente!
+ - Você precisa ter instaldo o Docker em sua máquina anteriormente!
 
 Existe a opção de rodar aplicação com o Docker, siga as instruções:
 
@@ -51,10 +51,14 @@ Gere a imagem Docker através do Dockerfile presente no projeto:
 docker build . -t trade-tech-image 
 ```
 Rode o container Docker através do imagem gerada anteriormente:
- - Certifique-se da porta 5173:5173 esteja disponivel.
+
+ - Certifique-se que a porta 5173:5173 esteja disponivel.
+ 
 ```shell
 docker run -d -p 5173:5173 --name trade-tech trade-tech-image
 ```
+
+Acesse a aplicação em seu navegador em http://localhost:5173.
 
 ## Funcionamento
 
