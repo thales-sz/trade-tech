@@ -18,7 +18,7 @@ function Dashboard (): JSX.Element {
   useEffect(() => {
     const logedUser = localStorage.getItem('user')
     if (logedUser == null || logedUser === '') navigate('/')
-    // if (season === 0 || team === 0 || league === 0) setError(true)
+    if (season === 0 || team === 0 || league === 0) setError(true)
   }, [navigate, season, team, league])
 
   const fetchStatistics = async (): Promise<any> => {
@@ -64,8 +64,8 @@ function Dashboard (): JSX.Element {
           : <div className='w-full flex flex-wrap justify-center gap-8'>
               <h1 className='w-full mt-40 text-3xl font-semibold'>{} na temporada {season}</h1>
               <TeamStatistics data={statistics.data} />
-              <PlayersTable data={players.data}/>
-              <Graphic />
+              <PlayersTable data={players.data} />
+              <Graphic data={statistics.data} />
             </div>
         }
     </div>

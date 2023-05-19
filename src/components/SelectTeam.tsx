@@ -67,7 +67,7 @@ function SelectTeam (): JSX.Element {
         {tryAgain &&
           <div className='flex text-orange-500 gap-2'>
              <CgDanger width={15} color='orange'/>
-              Ocorreu algum erro, tente novamente com outros valores!
+              Não há dados para esses valores!
           </div>}
         {error &&
           <div className='flex text-red-500 gap-2'>
