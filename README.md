@@ -1,3 +1,4 @@
+
 # Projeto de Processo Seletivo - Trade Technology
 Este projeto foi desenvolvido como parte do processo seletivo da empresa Trade Technology. Ele é uma aplicação web que utiliza as seguintes tecnologias:
 
@@ -31,3 +32,4 @@ npm run dev
 Acesse a aplicação em seu navegador em http://localhost:3000.
 Funcionamento
 Após instalar e executar o projeto localmente, você poderá visualizar a interface da aplicação no seu navegador. A página principal exibirá os gráficos de dados estatísticos de negociações financeiras.
+
