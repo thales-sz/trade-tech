@@ -31,6 +31,7 @@ function SelectTeam (): JSX.Element {
     e.preventDefault()
     setError(false)
     setTryAgain(false)
+    console.log(country, season)
     if (country !== '' || season !== 0) {
       const data = await mutateAsync()
       if (data.response[0] !== undefined) {

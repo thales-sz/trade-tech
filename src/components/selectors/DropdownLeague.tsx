@@ -36,7 +36,7 @@ function DropdownLeague ({ leagueListProp, handleButtonTeamClickProp }: Dropdown
       ...form,
       [target.name]: target.value
     })
-    toggleLeague(Number(target.value))
+    target.name === 'league' && toggleLeague(Number(target.value))
   }
 
   const handleDropdownClick = async (): Promise<void> => {

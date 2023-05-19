@@ -55,6 +55,7 @@ function DropdownTeam (): JSX.Element {
     setError(false)
     if (form.selectedTeam === 0) {
       setError(true)
+      return
     }
     toggleTeam(Number(form.selectedTeam))
     navigate('/dashboard')

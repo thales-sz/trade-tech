@@ -23,6 +23,7 @@ function DropdownSeason (): JSX.Element {
   })
 
   const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
+    console.log(target.name)
     setForm({
       ...form,
       [target.name]: Number(target.value)
