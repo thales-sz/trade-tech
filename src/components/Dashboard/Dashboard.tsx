@@ -10,7 +10,7 @@ import TeamStatistics from './TeamStatitics'
 import Graphic from './Graphic'
 
 function Dashboard (): JSX.Element {
-  const { selection: { season, team, league } } = useContext(Context)
+  const { selection: { season, team, league }, toggleCountry, toggleLeague, toggleSeason, toggleTeam } = useContext(Context)
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -48,6 +48,14 @@ function Dashboard (): JSX.Element {
     { queryKey: ['players', 2], queryFn: fetchPlayers, retry: 1, refetchOnWindowFocus: false }
   ])
 
+  const handleBackButtonClick = (): void => {
+    toggleCountry('')
+    toggleLeague(0)
+    toggleSeason(0)
+    toggleTeam(0)
+    navigate('/home')
+  }
+
   console.log(statistics.data, players.data)
   return (
     <div className="flex items-center w-3/4 mx-auto h-full text-center">
@@ -66,6 +74,7 @@ function Dashboard (): JSX.Element {
               <TeamStatistics data={statistics.data} />
               <PlayersTable data={players.data} />
               <Graphic data={statistics.data} />
+              <button className='bg-slate-600 hover:cursor-pointer hover:bg-slate-700 rounded-md text-slate-100 p-5 w-1/3 mb-8' onClick={handleBackButtonClick}>Selecionar outro time</button>
             </div>
         }
     </div>

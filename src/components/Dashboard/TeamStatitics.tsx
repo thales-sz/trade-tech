@@ -11,7 +11,7 @@ function TeamStatistics ({ data: { fixtures, lineups } }: TeamTableProps): JSX.E
       <InfoCard data={fixtures.wins.total} title={'Total de vitórias'}/>
       <InfoCard data={fixtures.loses.total} title={'Total de derrotas'}/>
       <InfoCard data={fixtures.draws.total} title={'Total de empates'}/>
-      <InfoCard data={lineups[0].formation} title={'Formação mais utilizada'}/>
+      <InfoCard data={lineups.length > 0 ? lineups[0].formation : 'Sem informação'} title={'Formação mais utilizada'}/>
     </div>
   )
 }

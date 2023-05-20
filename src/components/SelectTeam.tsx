@@ -22,16 +22,10 @@ function SelectTeam (): JSX.Element {
     }
   })
 
-  // https://v3.football.api-sports.io/leagues/seasons (Temporadas)
-  // https://v3.football.api-sports.io/countries (Países)
-  // https://v3.football.api-sports.io/leagues?country=value&season=value (Ligas)
-  // https://v3.football.api-sports.io/teams?country=brazil&league=628&season=2020 (Times)
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
     setError(false)
     setTryAgain(false)
-    console.log(country, season)
     if (country !== '' || season !== 0) {
       const data = await mutateAsync()
       if (data.response[0] !== undefined) {
