@@ -29,7 +29,6 @@ function DropdownCountry (): JSX.Element {
   const { isLoading, mutateAsync } = useMutation({
     mutationFn: async (): Promise<Country[]> => {
       const { data } = await api.get('/countries')
-      console.log(data)
       return data.response
     }
   })

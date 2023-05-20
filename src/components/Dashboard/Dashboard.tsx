@@ -56,7 +56,6 @@ function Dashboard (): JSX.Element {
     navigate('/home')
   }
 
-  console.log(statistics.data, players.data)
   return (
     <div className="flex items-center w-3/4 mx-auto h-full text-center">
       {error
